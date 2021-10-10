@@ -1,5 +1,5 @@
-<mxfile host="app.diagrams.net" modified="2021-10-10T11:35:35.705Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="lpNeM-xGanB_fMDZLAUc" version="15.5.0" type="github" pages="2">
-  <diagram id="C5RBs43oDa-KdzZeNtuy" name="환자">
+<mxfile host="app.diagrams.net" modified="2021-10-10T12:20:10.711Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="rqCW30P7qCTWgIz2dPWN" version="15.5.0" type="github" pages="2">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="파랑지우개">
     <mxGraphModel dx="1208" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -58,11 +58,74 @@
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-28" value="오늘 첫 로그인인가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="182.5" y="360" width="145" height="80" as="geometry" />
         </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-36" target="Z8gFCuBKRbl_2NiVSG5U-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-36" value="일일 문답 페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="130" y="500" width="110" height="40" as="geometry" />
         </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-39" target="Z8gFCuBKRbl_2NiVSG5U-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-76" value="메인 페이지" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Z8gFCuBKRbl_2NiVSG5U-44">
+          <mxGeometry x="-0.4141" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-39" target="Z8gFCuBKRbl_2NiVSG5U-71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-74" value="상단 배너" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-39" target="Z8gFCuBKRbl_2NiVSG5U-72">
+          <mxGeometry x="-0.8333" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-39" value="메인화면" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="270" y="500" width="110" height="40" as="geometry" />
+          <mxGeometry x="200" y="600" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-47" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-45" target="Z8gFCuBKRbl_2NiVSG5U-48">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-45" target="Z8gFCuBKRbl_2NiVSG5U-51">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="387.5" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-56" value="NO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Z8gFCuBKRbl_2NiVSG5U-50">
+          <mxGeometry x="-0.6635" y="-1" relative="1" as="geometry">
+            <mxPoint x="66" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-45" value="의사가 매칭되어 있는가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="30" y="700" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-78" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-48" target="Z8gFCuBKRbl_2NiVSG5U-77">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-48" value="예약 관리 페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="47.5" y="950" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-51" target="Z8gFCuBKRbl_2NiVSG5U-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-51" value="의사 선택 페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="187.5" y="840" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-71" value="마이페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="250" y="690" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-72" value="상담내역 페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="390" y="690" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-77" target="Z8gFCuBKRbl_2NiVSG5U-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-77" value="예약 관리 페이지" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="47.5" y="1070" width="110" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
