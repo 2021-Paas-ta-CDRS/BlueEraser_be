@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-10-11T01:27:31.224Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="418oGmIOQcNgO6y2fCSO" version="15.5.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-10-11T03:29:02.592Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="X167wPXyCP_XMi4RsAfU" version="15.5.0" type="github" pages="2">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="파랑지우개">
     <mxGraphModel dx="1208" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -55,7 +55,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-28" value="오늘 첫 로그인인가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-28" value="오늘 문답을 했는가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="182.5" y="360" width="145" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-36" target="Z8gFCuBKRbl_2NiVSG5U-39" edge="1">
@@ -100,7 +100,7 @@
             <mxPoint x="66" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-45" value="의사가 매칭되어 있는가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-45" value="유효한 상담 패키지를 &lt;br&gt;등록해두었는가?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;arcSize=14;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="30" y="700" width="145" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-78" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-48" target="Z8gFCuBKRbl_2NiVSG5U-77" edge="1">
@@ -232,6 +232,14 @@
         <mxCell id="Bw3-Ah7WPAqujrGXwnBj-37" value="리뷰 작성" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="47.5" y="1280" width="110" height="40" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="BKrTcY51ppbzOoWodUx3" name="Page-2">
+    <mxGraphModel dx="1208" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="AGv0k25v30YlGuk3J2FF-0" />
+        <mxCell id="AGv0k25v30YlGuk3J2FF-1" parent="AGv0k25v30YlGuk3J2FF-0" />
       </root>
     </mxGraphModel>
   </diagram>
