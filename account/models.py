@@ -37,7 +37,11 @@ class User(AbstractBaseUser):
     age = models.IntegerField(verbose_name='나이')
     phone_number = models.CharField(max_length=20, verbose_name='전화번호')
     ssn = models.CharField(max_length=20, verbose_name='주민등록번호')
-    sex = models.CharField(max_length=1, verbose_name='성별')
+    SEX_CHOICE = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+    ]
+    sex = models.CharField(max_length=2, choices=SEX_CHOICE, verbose_name='성별')
     address = models.CharField(max_length=200, verbose_name='주소')
     joined_date = models.DateTimeField(auto_now_add=True, verbose_name='가입년월일')
 
