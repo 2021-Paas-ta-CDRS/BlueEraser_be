@@ -1,3 +1,4 @@
 ## BlueEraser_be Ignore File or Folder ##
 
 .venv/
+**/__pycache__/
