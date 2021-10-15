@@ -13,6 +13,7 @@ class UserManager(BaseUserManager):
             name=kwargs.get("name"),
             age=kwargs.get("age"),
             phone_number=kwargs.get("phone_number"),
+            ssn=kwargs.get("ssn"),
             sex=kwargs.get("sex"),
             address=kwargs.get("address"),
         )
