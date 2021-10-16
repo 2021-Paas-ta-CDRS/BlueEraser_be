@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-10-16T10:54:57.056Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="kQF0hYCJqAJkmaEii2Mo" version="15.5.4" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-10-16T10:56:24.184Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="szSYYVjYx29WqKcpnias" version="15.5.4" type="github" pages="2">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="파랑지우개">
-    <mxGraphModel dx="1007" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1208" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -40,7 +40,7 @@
         <mxCell id="Z8gFCuBKRbl_2NiVSG5U-22" value="메인화면(비로그인)" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="200" y="90" width="110" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-35" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-28" target="Z8gFCuBKRbl_2NiVSG5U-36" edge="1">
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-35" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8gFCuBKRbl_2NiVSG5U-28" target="Z8gFCuBKRbl_2NiVSG5U-36" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="160" y="500" as="targetPoint" />
           </mxGeometry>
@@ -50,7 +50,7 @@
             <mxPoint x="320" y="500" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-41" value="NO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Z8gFCuBKRbl_2NiVSG5U-38" vertex="1" connectable="0">
+        <mxCell id="Z8gFCuBKRbl_2NiVSG5U-41" value="YES" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Z8gFCuBKRbl_2NiVSG5U-38" vertex="1" connectable="0">
           <mxGeometry y="3" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
