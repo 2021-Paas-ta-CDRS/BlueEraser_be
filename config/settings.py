@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'knox',
-    'account',
+    'user',
 ]
 
 REST_FRAMEWORK  = {
