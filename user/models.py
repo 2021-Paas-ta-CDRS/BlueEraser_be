@@ -9,7 +9,7 @@ class UserManager(BaseUserManager):
         if not "password" in kwargs:
             raise ValueError("Users must have a password")
         user = self.model(
-            user_type = kwargs.get('user_type'),
+            user_type=kwargs.get('user_type'),
             email=self.normalize_email(kwargs.get('email'))
         )
         user.set_password(self.normalize_email(kwargs.get('password')))
