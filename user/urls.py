@@ -4,5 +4,4 @@ from rest_framework import urls
 
 urlpatterns = [
     path('signup/', views.CreateUserAPI.as_view()),
-    path('api-auth/', include('rest_framework.urls')),
 ]
