@@ -3,5 +3,6 @@ from . import views
 from rest_framework import urls
 
 urlpatterns = [
-    path('signup/', views.CreateUserAPI.as_view()),
+    path('login/', views.LoginUserAPI.as_view()),
+    path('test/', views.TestTokenAPI.as_view()),
 ]
