@@ -1,8 +1,10 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.utils import serializer_helpers
 from user.serializers import CreateUserSerializer, LoginUserSerializer, UserSerializer
+from .serializers import UpdateDoctorSerializer
 
 @permission_classes([AllowAny])
 class CreateDoctorAPI(generics.GenericAPIView):
@@ -11,7 +13,7 @@ class CreateDoctorAPI(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save(user_type='D')
+        serializer.save(user_type='D')
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @permission_classes([AllowAny])
@@ -30,3 +32,13 @@ class LoginDoctorAPI(generics.GenericAPIView):
                 'token': user['token']
             }
         )
+
+@permission_classes([IsAuthenticated])
+class UpdateDoctorAPI(generics.GenericAPIView):
+    serializer_class = UpdateDoctorSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
