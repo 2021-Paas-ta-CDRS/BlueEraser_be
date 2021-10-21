@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import LoginUserSerializer, UpdateUserSerializer, UserSerializer
-from .models import User
 
 @permission_classes([AllowAny])
 class LoginUserAPI(generics.GenericAPIView):
@@ -26,13 +25,12 @@ class LoginUserAPI(generics.GenericAPIView):
         )
 
 @permission_classes([IsAuthenticated])
-class TestTokenAPI(generics.GenericAPIView):
-    serializer_class = UserSerializer
-    def get(self, request, *args, **kwargs):
-        return Response({'message': 'user authenticated!'}, status=status.HTTP_200_OK)
-
-@permission_classes([IsAuthenticated])
-class UpdateUserAPI(generics.UpdateAPIView):
-    queryset = User.objects.all()
+class UpdateUserAPI(generics.GenericAPIView):
     serializer_class = UpdateUserSerializer
+
+    def put(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
  
