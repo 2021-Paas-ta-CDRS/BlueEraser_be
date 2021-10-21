@@ -2,7 +2,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import LoginUserSerializer, UserSerializer
+from .serializers import LoginUserSerializer, UpdateUserSerializer, UserSerializer
+from .models import User
 
 @permission_classes([AllowAny])
 class LoginUserAPI(generics.GenericAPIView):
@@ -29,3 +30,9 @@ class TestTokenAPI(generics.GenericAPIView):
     serializer_class = UserSerializer
     def get(self, request, *args, **kwargs):
         return Response({'message': 'user authenticated!'}, status=status.HTTP_200_OK)
+
+@permission_classes([IsAuthenticated])
+class UpdateUserAPI(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UpdateUserSerializer
+ 
