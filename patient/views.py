@@ -18,9 +18,11 @@ class CreatePatientAPI(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+
 @permission_classes([AllowAny])
 class LoginPatientAPI(CreateAPIView):
     serializer_class = LoginUserSerializer
+
 
 @permission_classes([IsAuthenticated])
 class UpdatePatientAPI(CreateAPIView):
