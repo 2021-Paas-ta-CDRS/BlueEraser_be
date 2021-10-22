@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from patient.serializers import UpdatePatientSerializer
 from user.serializers import CreateUserSerializer, LoginUserSerializer
 
@@ -25,4 +26,4 @@ class LoginPatientAPI(CreateAPIView):
 
 class UpdatePatientAPI(CreateAPIView):
     serializer_class = UpdatePatientSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
