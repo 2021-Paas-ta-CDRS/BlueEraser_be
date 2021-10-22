@@ -1,10 +1,10 @@
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from patient.serializers import UpdatePatientSerializer
-from user.serializers import CreateUserSerializer, LoginUserSerializer, UserSerializer
+from user.serializers import CreateUserSerializer, LoginUserSerializer
 
 
 @permission_classes([AllowAny])
