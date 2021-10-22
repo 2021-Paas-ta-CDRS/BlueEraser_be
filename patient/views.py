@@ -1,7 +1,8 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from patient.serializers import UpdatePatientSerializer
 from user.serializers import CreateUserSerializer, LoginUserSerializer, UserSerializer
 
 @permission_classes([AllowAny])
@@ -30,3 +31,13 @@ class LoginPatientAPI(generics.GenericAPIView):
                 'token': user['token']
             }
         )
+
+@permission_classes([IsAuthenticated])
+class UpdatePatientAPI(generics.GenericAPIView):
+    serializer_class = UpdatePatientSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
