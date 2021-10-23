@@ -11,9 +11,10 @@ class UpdatePatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = ('job', )
     
-    def create(self, validated_data):
+    def update(self, instance, validated_data):
         patient, _ = Patient.objects.update_or_create(
-            user=self.context['request'].user,
+            user=instance,
             defaults={'job': validated_data['job'], }
         )
+
         return patient

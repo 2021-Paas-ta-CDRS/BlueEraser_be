@@ -58,14 +58,3 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('name', 'age', 'phone_number', 'sex', 'address', )
-
-    def update(self, instance, validated_data):
-        instance.name = validated_data['name']
-        instance.age = validated_data['age']
-        instance.phone_number = validated_data['phone_number']
-        instance.sex = validated_data['sex']
-        instance.address = validated_data['address']
-        
-        instance.save()
-
-        return instance
