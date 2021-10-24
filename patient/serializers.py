@@ -14,7 +14,6 @@ class UpdatePatientSerializer(serializers.ModelSerializer):
     
     def update_or_create(self):
         validated_data = {**self.validated_data, }
-        print(validated_data)
         patient, _ = Patient.objects.update_or_create(
             user=validated_data.pop('user')['id'],
             defaults=validated_data

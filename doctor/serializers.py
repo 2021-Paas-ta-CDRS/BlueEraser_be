@@ -7,17 +7,15 @@ class DoctorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UpdateDoctorSerializer(serializers.ModelSerializer):
+    user_id = serializers.CharField(source='user.id')
     class Meta:
         model = Doctor
-        fields = ('user', 'hospital_address', )
-        extra_kwargs = {
-            'user': {'validators': []},
-        }
+        fields = ('user_id', 'hospital_address', )
     
     def update_or_create(self):
         validated_data = {**self.validated_data, }
         doctor, _ = Doctor.objects.update_or_create(
-            user=validated_data.pop('user'),
+            user=validated_data.pop('user')['id'],
             defaults=validated_data
         )
         return doctor
