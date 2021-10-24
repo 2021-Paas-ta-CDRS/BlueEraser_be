@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Doctor
+from user.models import User
 
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +16,7 @@ class UpdateDoctorSerializer(serializers.ModelSerializer):
     def update_or_create(self):
         validated_data = {**self.validated_data, }
         doctor, _ = Doctor.objects.update_or_create(
-            user=validated_data.pop('user')['id'],
+            user_id=validated_data.pop('user')['id'],
             defaults=validated_data
         )
         return doctor
