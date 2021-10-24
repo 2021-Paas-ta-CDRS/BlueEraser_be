@@ -28,12 +28,16 @@ class UpdatePatientAPI(GenericAPIView):
     user_serializer_class = UpdateUserSerializer
 
     def put(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.user, data=request.data, partial=True)
+        request_data = self.get_data_with_userid(request)
+        serializer = self.serializer_class(data=request_data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.update_or_create()
 
         user_serializer = self.user_serializer_class(request.user, data=request.data, partial=True)
         user_serializer.is_valid(raise_exception=True)
         user_serializer.save()
 
         return Response(user_serializer.data, status=status.HTTP_200_OK)
+
+    def get_data_with_userid(self, request):
+        return {'user': request.user.id, **request.data.dict()}

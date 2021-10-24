@@ -9,12 +9,15 @@ class UserSerializer(serializers.ModelSerializer):
 class UpdatePatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
-        fields = ('job', )
+        fields = ('user', 'job', )
+        extra_kwargs = {
+            'user': {'validators': []},
+        }
     
-    def update(self, instance, validated_data):
+    def update_or_create(self):
+        validated_data = {**self.validated_data, }
         patient, _ = Patient.objects.update_or_create(
-            user=instance,
-            defaults={'job': validated_data['job'], }
+            user=validated_data.pop('user'),
+            defaults=validated_data
         )
-
         return patient
