@@ -2,8 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.utils import serializer_helpers
-from user.serializers import CreateUserSerializer, LoginUserSerializer, UserSerializer
+from user.serializers import CreateUserSerializer, LoginUserSerializer, UpdateUserSerializer, UserSerializer
 from .serializers import UpdateDoctorSerializer
 
 @permission_classes([AllowAny])
@@ -36,10 +35,19 @@ class LoginDoctorAPI(generics.GenericAPIView):
 @permission_classes([IsAuthenticated])
 class UpdateDoctorAPI(generics.GenericAPIView):
     serializer_class = UpdateDoctorSerializer
+    user_serializer_class = UpdateUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+    def put(self, request, *args, **kwargs):
+        request_data = self.get_data_with_userid(request)
+        serializer = self.serializer_class(data=request_data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.update_or_create()
+
+        user_serializer = self.user_serializer_class(request.user, data=request.data, partial=True)
+        user_serializer.is_valid(raise_exception=True)
+        user_serializer.save()
+
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
     
+    def get_data_with_userid(self, request):
+        return {'user': request.user.id, **request.data.dict()}
