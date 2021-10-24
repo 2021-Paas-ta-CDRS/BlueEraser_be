@@ -1,44 +1,41 @@
-from rest_framework import generics, status
+from rest_framework import status
+from rest_framework.generics import GenericAPIView, CreateAPIView
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.utils import serializer_helpers
-from user.serializers import CreateUserSerializer, LoginUserSerializer, UserSerializer
 from .serializers import UpdateDoctorSerializer
+from user.serializers import CreateUserSerializer, LoginUserSerializer, UpdateUserSerializer
 
-@permission_classes([AllowAny])
-class CreateDoctorAPI(generics.GenericAPIView):
+class CreateDoctorAPI(CreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = CreateUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data={'user_type': 'D', **request.data.dict()})
         serializer.is_valid(raise_exception=True)
-        serializer.save(user_type='D')
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-@permission_classes([AllowAny])
-class LoginDoctorAPI(generics.GenericAPIView):
+class LoginDoctorAPI(CreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = LoginUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        return Response(
-            {
-                'email': UserSerializer(
-                    user, context=self.get_serializer_context()
-                ).data.get('email'),
-                'token': user['token']
-            }
-        )
-
-@permission_classes([IsAuthenticated])
-class UpdateDoctorAPI(generics.GenericAPIView):
+class UpdateDoctorAPI(GenericAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = UpdateDoctorSerializer
+    user_serializer_class = UpdateUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+    def put(self, request, *args, **kwargs):
+        request_data = self.get_data_with_userid(request)
+        serializer = self.serializer_class(data=request_data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.update_or_create()
+
+        user_serializer = self.user_serializer_class(request.user, data=request.data, partial=True)
+        user_serializer.is_valid(raise_exception=True)
+        user_serializer.save()
+
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+    
+    def get_data_with_userid(self, request):
+        return {'user_id': request.user.id, **request.data.dict()}

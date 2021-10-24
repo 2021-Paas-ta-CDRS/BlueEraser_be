@@ -1,15 +1,13 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import GenericAPIView, CreateAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from patient.serializers import UpdatePatientSerializer
-from user.serializers import CreateUserSerializer, LoginUserSerializer
-
+from user.serializers import CreateUserSerializer, LoginUserSerializer, UpdateUserSerializer
 
 class CreatePatientAPI(CreateAPIView):
-    serializer_class = CreateUserSerializer
     permission_classes = [AllowAny]
+    serializer_class = CreateUserSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data={'user_type': 'P', **request.data.dict()})
@@ -20,10 +18,26 @@ class CreatePatientAPI(CreateAPIView):
 
 
 class LoginPatientAPI(CreateAPIView):
-    serializer_class = LoginUserSerializer
     permission_classes = [AllowAny]
+    serializer_class = LoginUserSerializer
 
 
-class UpdatePatientAPI(CreateAPIView):
-    serializer_class = UpdatePatientSerializer
+class UpdatePatientAPI(GenericAPIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = UpdatePatientSerializer
+    user_serializer_class = UpdateUserSerializer
+
+    def put(self, request, *args, **kwargs):
+        request_data = self.get_data_with_userid(request)
+        serializer = self.serializer_class(data=request_data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.update_or_create()
+
+        user_serializer = self.user_serializer_class(request.user, data=request.data, partial=True)
+        user_serializer.is_valid(raise_exception=True)
+        user_serializer.save()
+
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+
+    def get_data_with_userid(self, request):
+        return {'user_id': request.user.id, **request.data.dict()}
