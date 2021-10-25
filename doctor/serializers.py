@@ -1,10 +1,19 @@
 from rest_framework import serializers
+
+from user.serializers import UserSerializer
 from .models import Doctor
 
 class DoctorSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Doctor
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        user_details = representation.pop('user')
+        representation.update(user_details)
+        return representation
 
 class UpdateDoctorSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField(source='user.id')

@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from patient.models import Patient
@@ -17,7 +17,7 @@ class CreatePatientAPI(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-class UpdatePatientAPI(GenericAPIView):
+class UpdatePatientAPI(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UpdatePatientSerializer
     user_serializer_class = UpdateUserSerializer
