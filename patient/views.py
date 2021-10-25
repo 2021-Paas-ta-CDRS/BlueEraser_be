@@ -1,15 +1,10 @@
-from typing import Generic
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from patient.models import Patient
 from patient.serializers import PatientSerializer, UpdatePatientSerializer
-from user.serializers import CreateUserSerializer, LoginUserSerializer, UpdateUserSerializer
-
-class LoginPatientAPI(CreateAPIView):
-    permission_classes = [AllowAny]
-    serializer_class = LoginUserSerializer
+from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
 class CreatePatientAPI(CreateAPIView):
     permission_classes = [AllowAny]
