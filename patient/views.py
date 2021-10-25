@@ -1,9 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from patient.serializers import UpdatePatientSerializer
-from user.serializers import CreateUserSerializer, LoginUserSerializer, UpdateUserSerializer
+from patient.models import Patient
+from .serializers import PatientSerializer, UpdatePatientSerializer
+from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
 class CreatePatientAPI(CreateAPIView):
     permission_classes = [AllowAny]
@@ -16,13 +17,7 @@ class CreatePatientAPI(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-
-class LoginPatientAPI(CreateAPIView):
-    permission_classes = [AllowAny]
-    serializer_class = LoginUserSerializer
-
-
-class UpdatePatientAPI(GenericAPIView):
+class UpdatePatientAPI(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UpdatePatientSerializer
     user_serializer_class = UpdateUserSerializer
@@ -41,3 +36,10 @@ class UpdatePatientAPI(GenericAPIView):
 
     def get_data_with_userid(self, request):
         return {'user_id': request.user.id, **request.data.dict()}
+
+class GetPatientAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PatientSerializer
+
+    def get_queryset(self):
+        return Patient.objects.filter(user=self.request.user)

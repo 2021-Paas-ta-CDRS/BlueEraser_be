@@ -1,8 +1,8 @@
 from django.urls import path, include
-from .views import CreatePatientAPI, LoginPatientAPI, UpdatePatientAPI
+from .views import CreatePatientAPI, GetPatientAPI, UpdatePatientAPI
 
 urlpatterns = [
-    path('signup/', CreatePatientAPI.as_view()),
-    path('login/', LoginPatientAPI.as_view()),
-    path('update/', UpdatePatientAPI.as_view()),
+    path('signup/', CreatePatientAPI.as_view()),  # POST
+    path('update/', UpdatePatientAPI.as_view()),  # PUT
+    path('', GetPatientAPI.as_view()),            # GET
 ]
