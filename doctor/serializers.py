@@ -1,7 +1,6 @@
 from rest_framework import serializers
-
-from user.serializers import UserSerializer
 from .models import Doctor
+from user.serializers import UserSerializer
 
 class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from patient.models import Patient
-from patient.serializers import PatientSerializer, UpdatePatientSerializer
+from .serializers import PatientSerializer, UpdatePatientSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
 class CreatePatientAPI(CreateAPIView):
