@@ -22,7 +22,7 @@ class UpdateDoctorAPI(GenericAPIView):
     serializer_class = UpdateDoctorSerializer
     user_serializer_class = UpdateUserSerializer
 
-    def put(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         request_data = self.get_data_with_userid(request)
         serializer = self.serializer_class(data=request_data, partial=True)
         serializer.is_valid(raise_exception=True)

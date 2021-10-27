@@ -1,6 +1,7 @@
 from django.urls import path, include
-from .views import CreateQuestionFormAPI
+from rest_framework.routers import DefaultRouter
+from .views import QuestionFormAPI
 
 urlpatterns = [
-    path('', CreateQuestionFormAPI.as_view()),
+    path('question_form/', QuestionFormAPI.as_view()),
 ]
