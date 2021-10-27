@@ -10,4 +10,4 @@ class Question(models.Model):
     question_form = models.ForeignKey(QuestionForm, on_delete=models.CASCADE, db_column='question_form', related_name='question_form')
     answer = models.JSONField(verbose_name='답변')
     point = models.IntegerField(verbose_name='점수')
-    answer_time=models.CharField(max_length=10, verbose_name='문답시간')
+    answer_time=models.DateTimeField(auto_now_add=True, verbose_name='문답일자')
