@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.permissions import AllowAny
+from .serializers import QuestionFormSerializer
+from .models import Question, QuestionForm
 
-# Create your views here.
+class CreateQuestionFormAPI(CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = QuestionFormSerializer
+    queryset = QuestionForm
