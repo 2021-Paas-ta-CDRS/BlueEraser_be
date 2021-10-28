@@ -48,4 +48,13 @@ class GetDoctorAPI(ListAPIView):
 class CertificateAPI(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = CertificateSerializer
-    queryset = Certificate.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data={'doctor': request.user.doctor, **request.data.dict()})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def get_queryset(self):
+        return Certificate.objects.filter(doctor=self.request.user.doctor)
