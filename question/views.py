@@ -17,7 +17,7 @@ class QuestionAPI(ListModelMixin, CreateModelMixin, GenericViewSet):
 
     def create(self, request, *args, **kwargs):
         # 점수 계산 로직 구현 필요함
-        serializer = self.get_serializer(data={'patient': request.user.patient, 'point': 100, **request.data.dict()})
+        serializer = self.get_serializer(data={'patient': request.user.patient, **request.data.dict()})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
