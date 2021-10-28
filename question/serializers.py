@@ -5,3 +5,8 @@ class QuestionFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionForm
         fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
