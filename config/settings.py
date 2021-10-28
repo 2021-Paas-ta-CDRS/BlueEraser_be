@@ -41,14 +41,18 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'storages',
+
     'user',
     'patient',
     'doctor',
     'question',
 ]
 
+# custom user 권한 설정
 AUTH_USER_MODEL = 'user.User'
 
+# drf 관련 settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -67,6 +71,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+# jwt 관련 setting
 JWT_AUTH = {
     'JWT_SECRET_KEY': SECRET_KEY,
     'JWT_ALGORITHM': 'HS256',
@@ -74,6 +79,11 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 }
+
+# s3 bucket 관련 setting
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_SECURE_URLS = False
+AWS_QUERYSTRING_AUTH = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
