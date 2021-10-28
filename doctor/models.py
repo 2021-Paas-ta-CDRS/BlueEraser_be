@@ -10,3 +10,5 @@ class Doctor(models.Model):
 
 class Certificate(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, db_column='doctor', related_name='certificates')
+    certificate_name = models.CharField(max_length=50, verbose_name='자격종류')
+    certificate_image = models.ImageField()
