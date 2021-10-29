@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'patient',
     'doctor',
     'question',
+    'package',
 ]
 
 # custom user 권한 설정
