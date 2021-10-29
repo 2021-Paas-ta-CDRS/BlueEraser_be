@@ -1,9 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from doctor.models import Doctor
-from .serializers import DoctorSerializer, UpdateDoctorSerializer
+from doctor.models import Certificate, Doctor
+from .serializers import CertificateSerializer, DoctorSerializer, UpdateDoctorSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
 class CreateDoctorAPI(CreateAPIView):
@@ -17,7 +18,7 @@ class CreateDoctorAPI(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-class UpdateDoctorAPI(GenericAPIView):
+class UpdateDoctorAPI(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UpdateDoctorSerializer
     user_serializer_class = UpdateUserSerializer
@@ -43,3 +44,17 @@ class GetDoctorAPI(ListAPIView):
 
     def get_queryset(self):
         return Doctor.objects.filter(user=self.request.user)
+
+class CertificateAPI(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CertificateSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data={'doctor': request.user.doctor, **request.data.dict()})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def get_queryset(self):
+        return Certificate.objects.filter(doctor=self.request.user.doctor)

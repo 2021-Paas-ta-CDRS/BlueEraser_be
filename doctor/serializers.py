@@ -1,5 +1,6 @@
+from django.db.models import fields
 from rest_framework import serializers
-from .models import Doctor
+from .models import Certificate, Doctor
 from user.serializers import UserSerializer
 
 class DoctorSerializer(serializers.ModelSerializer):
@@ -27,3 +28,8 @@ class UpdateDoctorSerializer(serializers.ModelSerializer):
             defaults=validated_data
         )
         return doctor
+
+class CertificateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certificate
+        fields = '__all__'
