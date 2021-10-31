@@ -1,6 +1,7 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import permission_classes
+from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from doctor.models import Certificate, Doctor
@@ -38,7 +39,7 @@ class UpdateDoctorAPI(UpdateAPIView):
     def get_data_with_userid(self, request):
         return {'user_id': request.user.id, **request.data.dict()}
 
-class GetDoctorAPI(ListAPIView):
+class DoctorAPI(ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = DoctorSerializer
 

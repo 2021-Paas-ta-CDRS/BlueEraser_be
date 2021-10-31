@@ -8,4 +8,4 @@ class Package(models.Model):
     count = models.PositiveSmallIntegerField(verbose_name='횟수')
     description = models.TextField(verbose_name='상품 설명')
     counseling_time = models.IntegerField(verbose_name='상담 시간')
-    is_active = models.BooleanField(verbose_name='활성')
+    is_active = models.BooleanField(verbose_name='활성', default=True)
