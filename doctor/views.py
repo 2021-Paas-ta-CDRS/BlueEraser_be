@@ -1,9 +1,8 @@
 from rest_framework import status
-from rest_framework.decorators import permission_classes
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from doctor.models import Certificate, Doctor
 from .serializers import CertificateSerializer, DoctorSerializer, UpdateDoctorSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
@@ -40,13 +39,34 @@ class UpdateDoctorAPI(UpdateAPIView):
         return {'user_id': request.user.id, **request.data.dict()}
 
 class DoctorAPI(ReadOnlyModelViewSet):
-    permission_classes = [IsAuthenticated]
+    """ 의사 조회 API
+        의사 정보를 조회하는 API
+        Note:
+            * Authorization이 존재하는 경우
+                * Authorization에 해당하는 의사의 정보를 조회한다.
+            * Authorization이 존재하지 않는 경우
+                * 모든 의사의 정보를 조회한다.
+            * GET method만 허용한다.
+    """
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = DoctorSerializer
 
     def get_queryset(self):
-        return Doctor.objects.filter(user=self.request.user)
+        try:
+            return Doctor.objects.filter(user=self.request.user)
+        except:
+            return Doctor.objects.all()
 
 class CertificateAPI(ModelViewSet):
+    """ 자격증 API(의사)
+        의사에게 호출되는 상품 API
+        Note:
+            * header Authorization 파라미터가 필요하다.
+            * prefix가 doctor인 url에서 호출된다.
+                ex) */doctor/certificate/
+                    */doctor/certificate/1/
+            * GET, POST, DELETE, PUT을 허용한다.
+    """
     permission_classes = [IsAuthenticated]
     serializer_class = CertificateSerializer
 
@@ -59,3 +79,18 @@ class CertificateAPI(ModelViewSet):
 
     def get_queryset(self):
         return Certificate.objects.filter(doctor=self.request.user.doctor)
+
+class ReadOnlyCertificateAPI(ReadOnlyModelViewSet):
+    """ 자격증 API (비로그인 또는 환자)
+        비로그인 사용자와 환자에게 호출되는 자격증 API
+        Note:
+            * prefix가 doctor인 url에서 호출된다.
+                ex) */doctor/<int:doctor_id>/certificates/
+                    */doctor/<int:doctor_id>/certificates/1/
+            * GET method만 허용한다.
+    """
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        doctor_id = self.kwargs['doctor_id']
+        return Certificate.objects.filter(doctor=doctor_id)
