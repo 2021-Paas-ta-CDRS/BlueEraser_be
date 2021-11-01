@@ -72,6 +72,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
 
+    # request, response json 형식 camelCase로 변경
     'DEFAULT_RENDERER_CLASSES': (
         'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
