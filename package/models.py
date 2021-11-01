@@ -14,7 +14,7 @@ class Package(models.Model):
 class Matching(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, db_column='patient', related_name='matching')
     package = models.ForeignKey(Package, on_delete=models.PROTECT, db_column='package', related_name='matching')
-    state = models.BooleanField(default=False, verbose_name='매칭상태')
+    state = models.BooleanField(default=True, verbose_name='매칭상태')
 
 class Review(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT, db_column='doctor', related_name='review')
