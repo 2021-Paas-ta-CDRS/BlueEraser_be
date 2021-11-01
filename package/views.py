@@ -10,9 +10,10 @@ class PackageAPI(ModelViewSet):
     """ 상품 API (의사)
         의사에게 호출되는 상품 API
         Note:
+            * header에 Authorization 파라미터가 필요하다.
             * prefix가 package인 url에서 호출된다.
                 ex) */package/
-                    */package/1
+                    */package/1/
             * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
@@ -34,7 +35,7 @@ class ReadOnlyPackageAPI(ReadOnlyModelViewSet):
         Note:
             * prefix가 doctor인 url에서 호출된다.
                 ex) */doctor/<int:id>/packages/
-                    */doctor/<intLid>/packages/1
+                    */doctor/<int:id>/packages/1/
             * GET method만 허용한다.
     """
     permission_classes = [AllowAny]
