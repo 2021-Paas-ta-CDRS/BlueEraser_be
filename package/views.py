@@ -58,6 +58,15 @@ class MatchingAPI(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = MatchingSerializer
 
+    def create(self, request, *args, **kwargs):
+        if hasattr(self.request.user, 'doctor'):
+            return PermissionDenied()
+        serializer = self.get_serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def get_queryset(self):
         current_user = self.request.user
         if hasattr(current_user, 'doctor'):
