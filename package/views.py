@@ -5,7 +5,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from package.models import Matching, Package
 
-from package.serializers import MatchingSerializer, PackageSerializer
+from package.serializers import MatchingSerializer, PackageSerializer, ReviewSerializer
 
 class PackageAPI(ModelViewSet):
     """ 상품 API (의사)
@@ -75,3 +75,15 @@ class MatchingAPI(ModelViewSet):
             return Matching.objects.filter(patient=current_user.patient)
         else:
             raise PermissionDenied()
+
+class ReviewAPI(ModelViewSet):
+    """ 리뷰 API (환자)
+        환자에게 호출되는 리뷰 API
+
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class = ReviewSerializer
+
+class ReadOnlyReviewAPI(ReadOnlyModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = ReviewSerializer
