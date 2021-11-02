@@ -52,7 +52,7 @@ class MatchingAPI(ModelViewSet):
         Note:
             * prefix가 package인 url에서 호출된다.
                 ex) */package/matching/
-                    */package/matching/1
+                    */package/matching/1/
             * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
@@ -79,7 +79,11 @@ class MatchingAPI(ModelViewSet):
 class ReviewAPI(ModelViewSet):
     """ 리뷰 API (환자)
         환자에게 호출되는 리뷰 API
-
+        Note:
+            * prefix가 package인 url에서 호출된다.
+                ex) package/review/
+                    package/review/1/
+            * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
