@@ -5,7 +5,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from package.models import Matching, Package
 
-from package.serializers import MatchingSerializer, PackageSerializer
+from package.serializers import MatchingSerializer, PackageSerializer, ReviewSerializer
 
 class PackageAPI(ModelViewSet):
     """ 상품 API (의사)
@@ -52,11 +52,20 @@ class MatchingAPI(ModelViewSet):
         Note:
             * prefix가 package인 url에서 호출된다.
                 ex) */package/matching/
-                    */package/matching/1
+                    */package/matching/1/
             * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = MatchingSerializer
+
+    def create(self, request, *args, **kwargs):
+        if hasattr(self.request.user, 'doctor'):
+            return PermissionDenied()
+        serializer = self.get_serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def get_queryset(self):
         current_user = self.request.user
@@ -66,3 +75,19 @@ class MatchingAPI(ModelViewSet):
             return Matching.objects.filter(patient=current_user.patient)
         else:
             raise PermissionDenied()
+
+class ReviewAPI(ModelViewSet):
+    """ 리뷰 API (환자)
+        환자에게 호출되는 리뷰 API
+        Note:
+            * prefix가 package인 url에서 호출된다.
+                ex) package/review/
+                    package/review/1/
+            * GET, POST, DELETE, PUT을 허용한다.
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class = ReviewSerializer
+
+class ReadOnlyReviewAPI(ReadOnlyModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = ReviewSerializer
