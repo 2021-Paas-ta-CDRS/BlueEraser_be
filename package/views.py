@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from package.models import Matching, Package
+from package.models import Matching, Package, Review
 
 from package.serializers import MatchingSerializer, PackageSerializer, ReviewSerializer
 
@@ -35,8 +35,8 @@ class ReadOnlyPackageAPI(ReadOnlyModelViewSet):
         비로그인 사용자와 환자에게 호출되는 상품 API
         Note:
             * prefix가 doctor인 url에서 호출된다.
-                ex) */doctor/<int:id>/packages/
-                    */doctor/<int:id>/packages/1/
+                ex) */doctor/<int:doctor_id>/packages/
+                    */doctor/<int:doctor_id>/packages/1/
             * GET method만 허용한다.
     """
     permission_classes = [AllowAny]
@@ -59,9 +59,10 @@ class MatchingAPI(ModelViewSet):
     serializer_class = MatchingSerializer
 
     def create(self, request, *args, **kwargs):
-        if hasattr(self.request.user, 'doctor'):
+        if hasattr(self.request.user, 'doctor'): 
+            # 의사가 post 할 경우 permission deny
             return PermissionDenied()
-        serializer = self.get_serializer_class(data=request.data)
+        serializer = self.get_serializer(data={'patient': request.user.patient, **request.data.dict()})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -80,14 +81,43 @@ class ReviewAPI(ModelViewSet):
     """ 리뷰 API (환자)
         환자에게 호출되는 리뷰 API
         Note:
-            * prefix가 package인 url에서 호출된다.
-                ex) package/review/
-                    package/review/1/
+            * prefix가 doctor/matching/인 url에서 호출된다.
+                ex) doctor/matching/<int:matching_id>/review/
+                    doctor/matching/<int:matching_id>/review/1
             * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
+    def create(self, request, *args, **kwargs):
+        doctor = self.get_doctor_id()
+        serializer = self.get_serializer(data={'doctor': doctor, 'matching': self.kwargs['matching_id'], **request.data.dict()})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
+    def get_queryset(self):
+        """
+            path variable로 matching_id를 받아 필터링한 쿼리셋을 가져온다.
+        """
+        matching_id = self.kwargs['matching_id']
+        return Review.objects.filter(id=matching_id)
+
+    def get_doctor_id(self):
+        """
+            matching_id에 해당하는 doctor_id를 return한다.
+        """
+        matching = Matching.objects.get(id=self.kwargs['matching_id'])
+        return matching.package.doctor
+
 class ReadOnlyReviewAPI(ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        """
+            path variable로 doctor의 id를 받아 필터링한 쿼리셋을 가져온다.
+        """
+        doctor_id = self.kwargs['doctor_id']
+        return Review.objects.filter(doctor=doctor_id)

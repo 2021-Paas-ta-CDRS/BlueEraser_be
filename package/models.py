@@ -18,6 +18,6 @@ class Matching(models.Model):
 
 class Review(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT, db_column='doctor', related_name='review')
-    matching = models.OneToOneField(Matching, on_delete=models.PROTECT, db_column='matching', related_name='review')
+    matching = models.ForeignKey(Matching, on_delete=models.PROTECT, db_column='matching', related_name='review')
     star_rating = models.PositiveSmallIntegerField(verbose_name='별점')
     comment = models.TextField(verbose_name='설명')

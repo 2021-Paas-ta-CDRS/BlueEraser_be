@@ -90,6 +90,7 @@ class ReadOnlyCertificateAPI(ReadOnlyModelViewSet):
             * GET method만 허용한다.
     """
     permission_classes = [AllowAny]
+    serializer_class = CertificateSerializer
 
     def get_queryset(self):
         doctor_id = self.kwargs['doctor_id']
