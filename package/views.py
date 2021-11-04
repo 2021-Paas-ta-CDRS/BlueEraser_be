@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from package.models import Matching, Package
+from package.models import Matching, Package, Review
 
 from package.serializers import MatchingSerializer, PackageSerializer, ReviewSerializer
 
@@ -35,8 +35,8 @@ class ReadOnlyPackageAPI(ReadOnlyModelViewSet):
         비로그인 사용자와 환자에게 호출되는 상품 API
         Note:
             * prefix가 doctor인 url에서 호출된다.
-                ex) */doctor/<int:id>/packages/
-                    */doctor/<int:id>/packages/1/
+                ex) */doctor/<int:doctor_id>/packages/
+                    */doctor/<int:doctor_id>/packages/1/
             * GET method만 허용한다.
     """
     permission_classes = [AllowAny]
@@ -80,14 +80,28 @@ class ReviewAPI(ModelViewSet):
     """ 리뷰 API (환자)
         환자에게 호출되는 리뷰 API
         Note:
-            * prefix가 doctor/*/package인 url에서 호출된다.
-                ex) doctor/1/package/review/
-                    doctor/1/package/review/1
+            * prefix가 doctor/matching/인 url에서 호출된다.
+                ex) doctor/matching/<int:matching_id>/review/
+                    doctor/matching/<int:matching_id>/review/1
             * GET, POST, DELETE, PUT을 허용한다.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
+    def get_queryset(self):
+        """
+            path variable로 matching의 id를 받아 필터링한 쿼리셋을 가져온다.
+        """
+        matching_id = self.kwargs['matching_id']
+        return Review.objects.filter(matching=matching_id)
+
 class ReadOnlyReviewAPI(ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        """
+            path variable로 doctor의 id를 받아 필터링한 쿼리셋을 가져온다.
+        """
+        doctor_id = self.kwargs['doctor_id']
+        return Review.objects.filter(doctor=doctor_id)
