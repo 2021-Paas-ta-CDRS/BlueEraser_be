@@ -59,9 +59,10 @@ class MatchingAPI(ModelViewSet):
     serializer_class = MatchingSerializer
 
     def create(self, request, *args, **kwargs):
-        if hasattr(self.request.user, 'doctor'):
+        if hasattr(self.request.user, 'doctor'): 
+            # 의사가 post 할 경우 permission deny
             return PermissionDenied()
-        serializer = self.get_serializer_class(data=request.data)
+        serializer = self.get_serializer(data={'patient': request.user.patient, **request.data.dict()})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -88,12 +89,27 @@ class ReviewAPI(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
+    def create(self, request, *args, **kwargs):
+        doctor = self.get_doctor_id()
+        serializer = self.get_serializer(data={'doctor': doctor, 'matching': self.kwargs['matching_id'], **request.data.dict()})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
     def get_queryset(self):
         """
-            path variable로 matching의 id를 받아 필터링한 쿼리셋을 가져온다.
+            path variable로 matching_id를 받아 필터링한 쿼리셋을 가져온다.
         """
         matching_id = self.kwargs['matching_id']
-        return Review.objects.filter(matching=matching_id)
+        return Review.objects.filter(id=matching_id)
+
+    def get_doctor_id(self):
+        """
+            matching_id에 해당하는 doctor_id를 return한다.
+        """
+        matching = Matching.objects.get(id=self.kwargs['matching_id'])
+        return matching.package.doctor
 
 class ReadOnlyReviewAPI(ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
