@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'doctor',
     'question',
     'package',
+    'counseling',
 ]
 
 # custom user 권한 설정
