@@ -9,7 +9,7 @@ class CounselingSchedule(models.Model):
     start_datetime = models.DateField(verbose_name='상담일자및시간')
     is_valid = models.BooleanField(verbose_name='승인여부')
     end_datetime = models.DateField(verbose_name='상담종료및시간')
-    state = models.BooleanField(verbose_name='상담상태')
+    state = models.BooleanField(default=False, verbose_name='상담상태')
 
 class CounselingResult(models.Model):
     counseling_schedule = models.OneToOneField(CounselingSchedule, on_delete=PROTECT, related_name='counseling_result', db_column='counseling_result')
