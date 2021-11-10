@@ -18,7 +18,7 @@ class UpdateDoctorSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField(source='user.id')
     class Meta:
         model = Doctor
-        fields = ('user_id', 'hospital_address', )
+        fields = ('user_id', 'hospital_address', 'profile_image')
     
     def update_or_create(self):
         validated_data = {**self.validated_data, }

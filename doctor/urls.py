@@ -8,10 +8,11 @@ router.register(r'certificate', CertificateAPI, basename='certificate')
 router.register(r'(?P<doctor_id>\d+)/certificate', ReadOnlyCertificateAPI, basename='doctor_certificate')
 router.register(r'(?P<doctor_id>\d+)/package', ReadOnlyPackageAPI, basename='doctor_package')
 router.register(r'(?P<doctor_id>\d+)/review', ReadOnlyReviewAPI, basename='read_only_review')
+router.register(r'update', UpdateDoctorAPI, basename='doctor_update')
 router.register(r'', DoctorAPI, basename='doctor')
 
 urlpatterns = [
     path('signup/', CreateDoctorAPI.as_view()),
-    path('update/', UpdateDoctorAPI.as_view()),
+    # path('update/', UpdateDoctorAPI.as_view()),
     path('', include(router.urls)),
 ]

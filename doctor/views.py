@@ -19,12 +19,12 @@ class CreateDoctorAPI(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-class UpdateDoctorAPI(UpdateAPIView):
+class UpdateDoctorAPI(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UpdateDoctorSerializer
     user_serializer_class = UpdateUserSerializer
 
-    def update(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         request_data = self.get_data_with_userid(request)
         serializer = self.serializer_class(data=request_data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -34,7 +34,7 @@ class UpdateDoctorAPI(UpdateAPIView):
         user_serializer.is_valid(raise_exception=True)
         user_serializer.save()
 
-        return Response(user_serializer.data, status=status.HTTP_200_OK)
+        return Response((user_serializer.data, serializer.data), status=status.HTTP_200_OK)
     
     def get_data_with_userid(self, request):
         return {'user_id': request.user.id, **request.data.dict()}
