@@ -58,3 +58,8 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('name', 'age', 'phone_number', 'sex', 'address', )
+
+class GetUserTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('user_type', )

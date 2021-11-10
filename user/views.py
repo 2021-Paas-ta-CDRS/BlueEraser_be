@@ -1,8 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from .serializers import LoginUserSerializer, UserSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
+from user.models import User
+from .serializers import GetUserTypeSerializer, LoginUserSerializer, UserSerializer
 
 class LoginUserAPI(GenericAPIView):
     permission_classes = [AllowAny]
@@ -23,3 +25,10 @@ class LoginUserAPI(GenericAPIView):
                 'token': user['token'],
             }
         )
+
+class GetUserTypeAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = GetUserTypeSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
