@@ -1,0 +1,13 @@
+{
+    "dev": {
+        "aws_region": "ap-northeast-2",
+        "djaogn_settings": "config.settings",
+        "project_name": "blueeraser",
+        "runtime": "python3.8",
+        "s3_bucket": "blueeraser",
+        "vpc_config": {
+            "SubnetIds": ["subnet-06fb3ba20ab159485", "subnet-025c5d633cbc0baea"],
+            "SecurityGroupsIds": ["sg-02dd4557a9dc8501e"]
+        }
+    }
+}
