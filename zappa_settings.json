@@ -7,7 +7,7 @@
         "s3_bucket": "blueeraser",
         "vpc_config": {
             "SubnetIds": ["subnet-06fb3ba20ab159485", "subnet-025c5d633cbc0baea"],
-            "SecurityGroupsIds": ["sg-02dd4557a9dc8501e"]
+            "SecurityGroupIds": ["sg-02dd4557a9dc8501e"]
         }
     }
 }
