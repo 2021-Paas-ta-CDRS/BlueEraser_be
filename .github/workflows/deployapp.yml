@@ -38,13 +38,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Tests
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: |
-          source zappa-deploy/bin/activate
-          python manage.py test
-
       - name: Deploy with Zappa
         env:
           VIRTUAL_ENV: ./zappa-deploy
