@@ -41,6 +41,7 @@ jobs:
       - name: Deploy with Zappa
         env:
           VIRTUAL_ENV: ./zappa-deploy
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           source zappa-deploy/bin/activate
           pip install zappa
