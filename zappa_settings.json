@@ -6,8 +6,8 @@
         "runtime": "python3.8",
         "s3_bucket": "blueeraser",
         "vpc_config": {
-            "SubnetIds": ["subnet-06fb3ba20ab159485", "subnet-025c5d633cbc0baea"],
-            "SecurityGroupIds": ["sg-02dd4557a9dc8501e"]
+            "SubnetIds": ["subnet-01329392c70196cb4", "subnet-0b6ebc81f69045441"],
+            "SecurityGroupIds": ["sg-0d093a818ed1db952"]
         }
     }
 }
