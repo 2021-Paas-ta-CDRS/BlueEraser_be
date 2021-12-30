@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os, json
+import os
 from pathlib import Path
 import datetime
 
@@ -23,13 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-def get_secret(setting):
-    try:
-        return os.getenv(setting)
-    except KeyError:
-        error_msg = "Set the {} environment variable.".format(setting)
-        raise ImproperlyConfigured(error_msg)
-SECRET_KEY = get_secret("SECRET_KEY")
+
+# def get_secret(setting):
+#     try:
+#         return os.getenv(setting)
+#     except KeyError:
+#         error_msg = "Set the {} environment variable.".format(setting)
+#         raise ImproperlyConfigured(error_msg)
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -101,8 +103,8 @@ JWT_AUTH = {
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_S3_SECURE_URLS = False
 AWS_QUERYSTRING_AUTH = False
-AWS_S3_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
-AWS_S3_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+AWS_S3_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_S3_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = 'blueeraser'
 
 # CORS issue 관련 setting
