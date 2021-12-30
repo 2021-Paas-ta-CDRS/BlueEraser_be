@@ -42,6 +42,7 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
+          source zappa-deploy/bin/activate
           python manage.py test
 
       - name: Deploy with Zappa
