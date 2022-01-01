@@ -8,6 +8,7 @@
         "vpc_config": {
             "SubnetIds": ["subnet-01329392c70196cb4", "subnet-0b6ebc81f69045441"],
             "SecurityGroupIds": ["sg-0d093a818ed1db952"]
-        }
+        },
+        "layers": ["arn:aws:lambda:ap-northeast-2:993640809327:layer:mysqlclient-layer:2"]
     }
 }
