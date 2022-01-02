@@ -23,10 +23,6 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 # swagger schema
-schema_url_patterns = [
-    path('', include('user.urls')),
-]
-
 schema_view_v1 = get_schema_view(
     openapi.Info(
         title="Open API",
@@ -36,7 +32,6 @@ schema_view_v1 = get_schema_view(
     ),
     public=True,
     permission_classes=(AllowAny,),
-    patterns=schema_url_patterns,
 )
 
 urlpatterns = [
