@@ -16,7 +16,35 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# drf_yasg settings
+from django.conf.urls import url
+from rest_framework.permissions import AllowAny
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+# swagger schema
+schema_url_patterns = [
+    path('', include('user.urls')),
+]
+
+schema_view_v1 = get_schema_view(
+    openapi.Info(
+        title="Open API",
+        default_version='v1',
+        description="system API",
+        terms_of_service="https://www.google.com/policies/terms/",
+    ),
+    public=True,
+    permission_classes=(AllowAny,),
+    patterns=schema_url_patterns,
+)
+
 urlpatterns = [
+    # swagger url
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view_v1.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view_v1.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view_v1.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('patient/', include('patient.urls')),
