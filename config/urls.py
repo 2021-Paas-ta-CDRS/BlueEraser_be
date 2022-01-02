@@ -22,6 +22,10 @@ from rest_framework.permissions import AllowAny
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# static dir settings
+from django.conf.urls.static import static
+from config import settings
+
 # swagger schema
 schema_view_v1 = get_schema_view(
     openapi.Info(
@@ -47,4 +51,4 @@ urlpatterns = [
     path('question/', include('question.urls')),
     path('package/', include('package.urls')),
     path('counseling/', include('counseling.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
