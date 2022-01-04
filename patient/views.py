@@ -11,7 +11,7 @@ class CreatePatientAPI(CreateAPIView):
     serializer_class = CreateUserSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data={'user_type': 'P', **request.data.dict()})
+        serializer = self.get_serializer(data={'user_type': 'P', **request.data})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -35,7 +35,7 @@ class UpdatePatientAPI(UpdateAPIView):
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
     def get_data_with_userid(self, request):
-        return {'user_id': request.user.id, **request.data.dict()}
+        return {'user_id': request.user.id, **request.data}
 
 class GetPatientAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
