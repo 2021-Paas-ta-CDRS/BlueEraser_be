@@ -21,7 +21,7 @@ class PackageAPI(ModelViewSet):
     serializer_class = PackageSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data={'doctor': request.user.doctor, **request.data.dict()})
+        serializer = self.get_serializer(data={'doctor': request.user.doctor, **request.data})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -62,7 +62,7 @@ class MatchingAPI(ModelViewSet):
         if hasattr(self.request.user, 'doctor'): 
             # 의사가 post 할 경우 permission deny
             return PermissionDenied()
-        serializer = self.get_serializer(data={'patient': request.user.patient, **request.data.dict()})
+        serializer = self.get_serializer(data={'patient': request.user.patient, **request.data})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -91,7 +91,7 @@ class ReviewAPI(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         doctor = self.get_doctor_id()
-        serializer = self.get_serializer(data={'doctor': doctor, 'matching': self.kwargs['matching_id'], **request.data.dict()})
+        serializer = self.get_serializer(data={'doctor': doctor, 'matching': self.kwargs['matching_id'], **request.data})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
