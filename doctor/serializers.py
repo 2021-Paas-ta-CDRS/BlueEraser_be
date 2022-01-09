@@ -35,8 +35,3 @@ class CertificateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Certificate
         fields = '__all__'
-    
-    def create(self, validated_data):
-        name=validated_data.pop('certificateName')
-        image=validated_data.pop('certificateImage')
-        return Certificate.objects.create(certificate_name=name, certificate_image=image)
