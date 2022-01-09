@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.parsers import JSONParser, MultiPartParser
 
 from doctor.models import Certificate, Doctor
 from .serializers import CertificateSerializer, DoctorSerializer, UpdateDoctorSerializer
@@ -35,7 +36,7 @@ class UpdateDoctorAPI(ModelViewSet):
         user_serializer.save()
 
         return Response((user_serializer.data, serializer.data), status=status.HTTP_200_OK)
-    
+
     def get_data_with_userid(self, request):
         return {'user_id': request.user.id, **request.data}
 
@@ -70,6 +71,7 @@ class CertificateAPI(ModelViewSet):
     """
     permission_classes = [IsAuthenticated]
     serializer_class = CertificateSerializer
+    parser_classes = (MultiPartParser, JSONParser)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data={'doctor': request.user.doctor, **request.data})
