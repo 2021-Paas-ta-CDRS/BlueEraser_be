@@ -42,6 +42,7 @@ Pillow==8.4.0
 pip-tools==6.4.0
 placebo==0.8.1
 protobuf==3.19.1
+psycopg2==2.8.1
 pycparser==2.20
 PyJWT==1.7.1
 pyparsing==3.0.6
