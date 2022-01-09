@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import Certificate, Doctor
 from user.serializers import UserSerializer
 
+from doctor.fields import Base64ImageField
+
 class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
@@ -29,6 +31,12 @@ class UpdateDoctorSerializer(serializers.ModelSerializer):
         return doctor
 
 class CertificateSerializer(serializers.ModelSerializer):
+    certificate_image = Base64ImageField()
     class Meta:
         model = Certificate
         fields = '__all__'
+    
+    def create(self, validated_data):
+        name=validated_data.pop('certificate_name')
+        image=validated_data.pop('certificate_image')
+        return Certificate.objects.create(certificate_name=name, certificate_image=image)
