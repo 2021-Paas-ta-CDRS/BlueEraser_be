@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticate
 
 from doctor.models import Certificate, Doctor
 from user import serializers
-from .serializers import CertificateSerializer, DoctorSerializer, UpdateDoctorSerializer
+from .serializers import CertificateSerializer, DoctorSerializer, ReadOnlyDoctorSerializer, UpdateDoctorSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
 class CreateDoctorAPI(CreateAPIView):
@@ -50,7 +50,7 @@ class ReadOnlyDoctorAPI(ReadOnlyModelViewSet):
             * GET method만 허용한다.
     """
     permission_classes = [AllowAny]
-    serializer_class = DoctorSerializer
+    serializer_class = ReadOnlyDoctorSerializer
 
     def get_queryset(self):
             return Doctor.objects.all()
