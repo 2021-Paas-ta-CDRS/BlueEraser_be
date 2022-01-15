@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from doctor.models import Certificate, Doctor
+from user import serializers
 from .serializers import CertificateSerializer, DoctorSerializer, UpdateDoctorSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
@@ -39,24 +40,35 @@ class UpdateDoctorAPI(ModelViewSet):
     def get_data_with_userid(self, request):
         return {'user_id': request.user.id, **request.data}
 
-class DoctorAPI(ReadOnlyModelViewSet):
+class ReadOnlyDoctorAPI(ReadOnlyModelViewSet):
     """ 의사 조회 API
-        의사 정보를 조회하는 API
+        비로그인 상태 의사 정보를 조회하는 API
         Note:
-            * Authorization이 존재하는 경우
-                * Authorization에 해당하는 의사의 정보를 조회한다.
-            * Authorization이 존재하지 않는 경우
-                * 모든 의사의 정보를 조회한다.
+            * List, Retrieve
+                List        모든 의사의 정보를 조회한다.
+                Retreive    특정 의사의 정보를 조회한다. Path params 사용.
             * GET method만 허용한다.
     """
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
     serializer_class = DoctorSerializer
 
     def get_queryset(self):
-        try:
-            return Doctor.objects.filter(user=self.request.user)
-        except:
             return Doctor.objects.all()
+
+class DoctorAPI(ReadOnlyModelViewSet):
+    """ 의사 조회 API
+        로그인 상태 의사 정보를 조회하는 API
+        Note:
+            * List
+                List    현재 로그인한 본인(의사)의 정보를 조회한다.
+            * GET method만 허용한다.
+    """
+    
+    permission_classes = [IsAuthenticated]
+    serializer_class = DoctorSerializer
+    
+    def get_queryset(self):
+        return Doctor.objects.filter(user=self.request.user)
 
 class CertificateAPI(ModelViewSet):
     """ 자격증 API(의사)
