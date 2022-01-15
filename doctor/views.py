@@ -1,11 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from doctor.models import Certificate, Doctor
-from user import serializers
 from .serializers import CertificateSerializer, DoctorSerializer, ReadOnlyDoctorSerializer, UpdateDoctorSerializer
 from user.serializers import CreateUserSerializer, UpdateUserSerializer
 
