@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Certificate, Doctor
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, ReadOnlyUserSerializer
 
 class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
@@ -8,6 +8,18 @@ class DoctorSerializer(serializers.ModelSerializer):
         model = Doctor
         fields = '__all__'
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        user_details = representation.pop('user')
+        representation.update(user_details)
+        return representation
+
+class ReadOnlyDoctorSerializer(serializers.ModelSerializer):
+    user = ReadOnlyUserSerializer(read_only=True)
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+    
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         user_details = representation.pop('user')
