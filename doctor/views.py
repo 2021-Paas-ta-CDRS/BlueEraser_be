@@ -1,5 +1,5 @@
-from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework import mixins, status
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -54,20 +54,26 @@ class ReadOnlyDoctorAPI(ReadOnlyModelViewSet):
     def get_queryset(self):
             return Doctor.objects.all()
 
-class DoctorAPI(ReadOnlyModelViewSet):
+class DoctorInfoAPI(mixins.RetrieveModelMixin,
+                    GenericAPIView):
     """ 의사 조회 API
         로그인 상태 의사 정보를 조회하는 API
         Note:
-            * List
-                List    현재 로그인한 본인(의사)의 정보를 조회한다.
+            * Retrieve 현재 로그인한 본인(의사)의 정보를 조회한다.
             * GET method만 허용한다.
     """
-    
+    queryset = Doctor.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = DoctorSerializer
     
-    def get_queryset(self):
-        return Doctor.objects.filter(user=self.request.user)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+        
+        return queryset.filter(user=self.request.user).get()
 
 class CertificateAPI(ModelViewSet):
     """ 자격증 API(의사)
